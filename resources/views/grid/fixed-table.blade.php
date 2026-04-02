@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             @foreach($grid->visibleColumns() as $column)
-                            <th {!! $column->formatHtmlAttributes() !!}>{{$column->getLabel()}}{!! $column->renderHeader() !!}</th>
+                            <th {!! $column->formatHtmlAttributes() !!}>{!! $column->getLabel() !!}{!! $column->renderHeader() !!}</th>
                             @endforeach
                         </tr>
                     </thead>
@@ -59,26 +59,26 @@
             <div class="table-wrap table-fixed table-fixed-left">
                 <table class="table grid-table">
                     <thead>
-                    <tr>
-                        @foreach($grid->leftVisibleColumns() as $column)
+                        <tr>
+                            @foreach($grid->leftVisibleColumns() as $column)
                             <th {!! $column->formatHtmlAttributes() !!}>{{$column->getLabel()}}{!! $column->renderHeader() !!}</th>
-                        @endforeach
-                    </tr>
+                            @endforeach
+                        </tr>
                     </thead>
                     <tbody>
 
-                    @foreach($grid->rows() as $row)
+                        @foreach($grid->rows() as $row)
                         <tr {!! $row->getRowAttributes() !!}>
                             @foreach($grid->leftVisibleColumns() as $column)
-                                @php
-                                    $name = $column->getName()
-                                @endphp
-                                <td {!! $row->getColumnAttributes($name) !!} class="column-{!! $name !!}">
-                                    {!! $row->column($name) !!}
-                                </td>
+                            @php
+                            $name = $column->getName()
+                            @endphp
+                            <td {!! $row->getColumnAttributes($name) !!} class="column-{!! $name !!}">
+                                {!! $row->column($name) !!}
+                            </td>
                             @endforeach
                         </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
 
                     {!! $grid->renderTotalRow($grid->leftVisibleColumns()) !!}
@@ -91,27 +91,27 @@
             <div class="table-wrap table-fixed table-fixed-right">
                 <table class="table grid-table">
                     <thead>
-                    <tr>
-                        @foreach($grid->rightVisibleColumns() as $column)
+                        <tr>
+                            @foreach($grid->rightVisibleColumns() as $column)
                             <th {!! $column->formatHtmlAttributes() !!}>{{$column->getLabel()}}{!! $column->renderHeader() !!}</th>
-                        @endforeach
-                    </tr>
+                            @endforeach
+                        </tr>
                     </thead>
 
                     <tbody>
 
-                    @foreach($grid->rows() as $row)
+                        @foreach($grid->rows() as $row)
                         <tr {!! $row->getRowAttributes() !!}>
                             @foreach($grid->rightVisibleColumns() as $column)
-                                @php
-                                $name = $column->getName()
-                                @endphp
-                                <td {!! $row->getColumnAttributes($name) !!} class="column-{!! $name !!}">
-                                    {!! $row->column($name) !!}
-                                </td>
+                            @php
+                            $name = $column->getName()
+                            @endphp
+                            <td {!! $row->getColumnAttributes($name) !!} class="column-{!! $name !!}">
+                                {!! $row->column($name) !!}
+                            </td>
                             @endforeach
                         </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
 
                     {!! $grid->renderTotalRow($grid->rightVisibleColumns()) !!}
@@ -133,15 +133,16 @@
 
 <style>
     .tables-container {
-        position:relative;
+        position: relative;
     }
 
     .tables-container table {
         margin-bottom: 0px !important;
     }
 
-    .tables-container table th, .tables-container table td {
-        white-space:nowrap;
+    .tables-container table th,
+    .tables-container table td {
+        white-space: nowrap;
     }
 
     .table-wrap table tr .active {
@@ -154,20 +155,20 @@
     }
 
     .table-fixed {
-        position:absolute;
+        position: absolute;
         top: 0px;
-        background:#ffffff;
-        z-index:10;
+        background: #ffffff;
+        z-index: 10;
     }
 
     .table-fixed-left {
-        left:0;
-        box-shadow: 7px 0 5px -5px rgba(0,0,0,.12);
+        left: 0;
+        box-shadow: 7px 0 5px -5px rgba(0, 0, 0, .12);
     }
 
     .table-fixed-right {
-        right:0;
-        box-shadow: -5px 0 5px -5px rgba(0,0,0,.12);
+        right: 0;
+        box-shadow: -5px 0 5px -5px rgba(0, 0, 0, .12);
     }
 </style>
 
@@ -189,7 +190,7 @@
         $('.table-fixed').hide();
     }
 
-    $('.table-wrap tbody tr').on('mouseover', function () {
+    $('.table-wrap tbody tr').on('mouseover', function() {
         var index = $(this).index();
 
         $('.table-main tbody tr').eq(index).addClass('active');
@@ -197,7 +198,7 @@
         $('.table-fixed-right tbody tr').eq(index).addClass('active');
     });
 
-    $('.table-wrap tbody tr').on('mouseout', function () {
+    $('.table-wrap tbody tr').on('mouseout', function() {
         var index = $(this).index();
 
         $('.table-main tbody tr').eq(index).removeClass('active');
@@ -205,23 +206,25 @@
         $('.table-fixed-right tbody tr').eq(index).removeClass('active');
     });
 
-    $('.{{ $rowName }}-checkbox').iCheck({checkboxClass:'icheckbox_minimal-blue'}).on('ifChanged', function () {
+    $('.{{ $rowName }}-checkbox').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue'
+    }).on('ifChanged', function() {
 
         var id = $(this).data('id');
         var index = $(this).closest('tr').index();
 
         if (this.checked) {
-        $.admin.grid.select(id);
+            $.admin.grid.select(id);
             $('.table-main tbody tr').eq(index).css('background-color', '#ffffd5');
             $('.table-fixed-left tbody tr').eq(index).css('background-color', '#ffffd5');
             $('.table-fixed-right tbody tr').eq(index).css('background-color', '#ffffd5');
         } else {
-        $.admin.grid.unselect(id);
+            $.admin.grid.unselect(id);
             $('.table-main tbody tr').eq(index).css('background-color', '');
             $('.table-fixed-left tbody tr').eq(index).css('background-color', '');
             $('.table-fixed-right tbody tr').eq(index).css('background-color', '');
         }
-    }).on('ifClicked', function () {
+    }).on('ifClicked', function() {
 
         var id = $(this).data('id');
 
