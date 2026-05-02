@@ -1,9 +1,9 @@
 @if(Session::has('toastr'))
     @php
         $toastr     = Session::pull('toastr');
-        $type       = \Illuminate\Support\Arr::get($toastr->get('type'), 0, 'success');
-        $message    = \Illuminate\Support\Arr::get($toastr->get('message'), 0, '');
-        $options    = json_encode($toastr->get('options', []));
+        $type       = \Illuminate\Support\Arr::get($toastr, 'type', 'success');
+        $message    = \Illuminate\Support\Arr::get($toastr, 'message', '');
+        $options    = json_encode(\Illuminate\Support\Arr::get($toastr, 'options', []));
     @endphp
     <script>
         $(function () {

@@ -74,9 +74,7 @@ if (!function_exists('admin_toastr')) {
      */
     function admin_toastr($message = '', $type = 'success', $options = [])
     {
-        $toastr = new MessageBag(get_defined_vars());
-
-        session()->flash('toastr', $toastr);
+        session()->flash('toastr', compact('message', 'type', 'options'));
     }
 }
 
@@ -133,9 +131,7 @@ if (!function_exists('admin_info')) {
      */
     function admin_info($title, $message = '', $type = 'info')
     {
-        $message = new MessageBag(get_defined_vars());
-
-        session()->flash($type, $message);
+        session()->flash($type, compact('title', 'message', 'type'));
     }
 }
 
